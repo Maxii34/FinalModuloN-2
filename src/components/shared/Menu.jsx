@@ -5,8 +5,31 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../../assets/logo-veterinaria.jpg";
 import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
-const Menu = () => {
+const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
+  const navegacion = useNavigate();
+  const [usuarioActivo, setUsuarioActivo] = useState(null);
+  const [esAdmin, setEsAdmin] = useState(false);
+
+  useEffect(() => {
+    const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
+    setUsuarioActivo(usuario);
+
+    if (usuario && usuario.tipo === "admin") {
+      setEsAdmin(true);
+    } else {
+      setEsAdmin(false);
+    }
+  }, [usuarioLogueado]);
+
+  const cerrarSession = () => {
+    localStorage.removeItem("usuarioActivo");
+    setUsuariologueado(false);
+    navegacion("/");
+  };
+
   return (
     <Navbar expand="lg" className="nav-pri">
       <Container>
@@ -25,30 +48,56 @@ const Menu = () => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
-            className="ms-auto my-2 my-lg-0"
+            className="ms-auto my-2 my-lg-0 align-items-center"
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Form className="d-flex">
+            <Form className="d-flex flex-grow-0 me-5">
               <Form.Control
                 type="search"
                 placeholder="¿Qué estás buscando?"
-                className="me-2 w-100"
+                className="me-2"
                 aria-label="Search"
+                style={{ width: "200px" }}
               />
-              <Button variant="outline-success" className="me-4">
+              <Button variant="outline-success">
                 <i className="bi bi-search"></i>
               </Button>
             </Form>
+
             <NavLink to="/" className="nav-link">
               Inicio
             </NavLink>
-            <NavLink className={"nav-link"}>Turnos</NavLink>
-            <NavLink to={"/admin"} className={"nav-link"}>
-              Administrador
-            </NavLink>
-            <NavLink className={"nav-link"}>
-              <i className="bi bi-person-circle fs-5"></i>
+
+            {/* Turnos para usuarios normales */}
+            {usuarioActivo && usuarioActivo.tipo === "usuario" && (
+              <NavLink to="/turnos" className="nav-link">
+                Turnos
+              </NavLink>
+            )}
+
+            {/* Administrador */}
+            {esAdmin && (
+              <NavLink to="/turnos" className="nav-link">
+                Administrador
+              </NavLink>
+            )}
+
+            {usuarioActivo ? (
+              <Button
+                className="nav-link"
+                variant="link"
+                onClick={cerrarSession}
+              >
+                <i className="bi bi-box-arrow-right me-1"></i>Cerrar sesión
+              </Button>
+            ) : (
+              <Nav.Link onClick={openModal}>
+                <i className="bi bi-box-arrow-in-right me-1"></i> Ingresar
+              </Nav.Link>
+            )}
+            <NavLink to="/registro" className="nav-link">
+              <i className="bi bi-person-plus me-1"></i> Registro
             </NavLink>
           </Nav>
         </Navbar.Collapse>

@@ -1,5 +1,6 @@
 import { Container } from "react-bootstrap";
-
+import { NavLink } from "react-router";
+import { Link } from "react-router";
 
 const Footer = () => {
     return (
@@ -10,16 +11,16 @@ const Footer = () => {
 
           <div className="col-12 col-md-4 col-lg-4 mb-4 text-center text-md-start">
             <h5 className="fw-bold mb-3">Categorías</h5>
-            <ul className="list-unstyled">
-              <li>
-                <a href="#" className="text-dark text-decoration-none d-block mb-2">
+            <ul className="list-unstyled footer-links">
+                <li>
+                <NavLink to={"/contacto"} className="text-dark text-decoration-none d-block mb-2">
                   Contacto
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a href="#" className="text-dark text-decoration-none d-block mb-2">
+                <NavLink to={"/nosotros"} className="text-dark text-decoration-none d-block mb-2">
                   Quienes Somos
-                </a>
+                </NavLink>
               </li>
               <li>
                 <a href="#" className="text-dark text-decoration-none d-block mb-2">
@@ -41,12 +42,12 @@ const Footer = () => {
 
           <div className="col-12 col-md-4 col-lg-4 mb-4 text-center text-md-start">
             <h5 className="fw-bold mb-3">Contáctanos</h5>
-            <ul className="list-unstyled">
+            <ul className="list-unstyled footer-li">
               <li className="mb-2">
                 <i className="bi bi-whatsapp me-2"></i>54-3456673456
               </li>
               <li className="mb-2">
-                <i className="bi bi-envelope me-2"></i>Veterinaria@gmail.com
+                <i className="bi bi-envelope me-2"></i>DogTor@gmail.com
               </li>
               <li>
                 <i className="bi bi-geo-alt me-2"></i> Sucursales en: San Miguel de
@@ -60,16 +61,16 @@ const Footer = () => {
             <h5 className="fw-bold mb-3">Sigamos conectados</h5>
             <p>Siguenos en nuestras redes.</p>
             <div className="d-flex gap-3 justify-content-center justify-content-md-start">
-              <a href="#" className="icono-redes shadow">
+              <a href="#" className="icono-redes instagram">
                 <i className="bi bi-instagram fs-5"></i>
               </a>
-              <a href="#" className="icono-redes shadow">
+              <a href="#" className="icono-redes facebook">
                 <i className="bi bi-facebook fs-5"></i>
               </a>
-              <a href="#" className="icono-redes shadow">
+              <a href="#" className="icono-redes tiktok">
                 <i className="bi bi-tiktok fs-5"></i>
               </a>
-              <a href="#" className="icono-redes shadow">
+              <a href="#" className="icono-redes youtube">
                 <i className="bi bi-youtube fs-5"></i>
               </a>
             </div>
@@ -116,8 +117,7 @@ const Footer = () => {
       <div className="pie-footer py-4 shadow base-footer">
         <div className="container d-flex flex-column flex-md-row justify-content-center align-items-center small">
           <p className="mb-0 text-light text-center">
-            &copy; Copyright Veterinaria - 2025 Todos los derechos
-            reservados.
+            &copy; Copyright <strong>Dog<i className="bi bi-activity ms-1"></i>Tor</strong> - 2025 Todos los derechos reservados.
           </p>
         </div>
       </div>
